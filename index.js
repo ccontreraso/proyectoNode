@@ -3,14 +3,7 @@ const app = express();
 const path = require('path');
 const puppeteer = require('puppeteer');
 
-// (async()=>{
-//     const browser = await puppeteer.launch();
-//     const page = await browser.newPage(); //interactuar con las paginas
-//     await page.goto('https://www.chileatiende.gob.cl/');
-//     await page.screenshot({ path: 'banco.jpg'});
 
-//     await browser.close();
-// })()
 
 
 app.listen(3001 , ()=> 
@@ -18,15 +11,14 @@ app.listen(3001 , ()=>
     );
 
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname+'public'));
+
 
 app.get('/',(req,res) => {
-    res.sendFile(path.resolve(__dirname,'index.html'))
+    res.sendFile(path.resolve(__dirname+'/public/assets/html/','index.html'))
 })
 
-app.get('/index', (req,res) => {
 
-})
 
 app.get("/scrapping", function (req,res) {
     let scrape = async () => {
@@ -42,8 +34,20 @@ app.get("/scrapping", function (req,res) {
         await Promise.all([
             page.click(elementToClick),
             page.waitForNavigation({waitUntil: 'networkidle2'}),
-        ])
+        ]);
 
+        let elementToRut = '#uname';
+        let elementToPassword = '#pword';
+        
+        await page.type(elementToRut,'198906824');
+        await page.type(elementToPassword, 'Cesar2846054@');
+
+        elementToClick = '#login-submit';
+        await page.waitForSelector(elementToClick);
+        await Promise.all([
+            page.click(elementToClick),
+            page.waitForNavigation({waitUntil: 'networkidle2'}),
+        ]);
 
     }
 
