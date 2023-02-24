@@ -24,7 +24,7 @@ app.get('/',(req,res) => {
     res.render('index')
 });
 
-app.get('/datos', (req,res) => {
+app.post('/datos', (req,res) => {
     const rut = req.query.txt_rut;
     const password = req.query.txt_password;
     res.redirect('/scrapping?rut=${rut}&password=${password}');
