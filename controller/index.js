@@ -3,42 +3,41 @@ const app = express();
 const puppeteer = require('puppeteer');
 const mongoose = require('mongoose');
 const mongoUrl = 'mongodb+srv://cesarcontrerasor:OnuJxeNzZPA9dPph@yelli-local.mog9njr.mongodb.net/test';
-const Cliente = require ("./clientesModelo");
 const path = require ('path');
 
-mongoose.set('strictQuery', true);
-mongoose.connect(mongoUrl, {useNewUrlParser: true});
-var db = mongoose.connection;
-
-!db ? console.log("Hubo un error conectándose a la base de datos"): console.log("Conexión de base de datos satisfactoria");
-
-app.listen(3001 , ()=> 
-    console.log("El puerto es 3001")
-    );
-
-app.set("view engine", "ejs");
-app.use(express.static(__dirname+'/public'));
+//const Scrap = require('./controller/api/scrap  ');
 
 
-app.get('/',(req,res) => {
-    res.render('index')
-});
 
-app.post('/datos', (req,res) => {
-    const rut = req.query.txt_rut;
-    const password = req.query.txt_password;
-    res.redirect('/scrapping?rut=${rut}&password=${password}');
-})
+// mongoose.set('strictQuery', true);
+// mongoose.connect(mongoUrl, {useNewUrlParser: true});
+// var db = mongoose.connection;
+
+// !db ? console.log("Hubo un error conectándose a la base de datos"): console.log("Conexión de base de datos satisfactoria");
+
+exports.getIndex = ( req,res) => {
+    res.render('index',{title: 'Inicio'});
+};
+
+
+
+
+
+// app.post('/datos', (req,res) => {
+//     const rut = req.query.txt_rut;
+//     const password = req.query.txt_password;
+//     res.redirect('/scrapping?rut=${rut}&password=${password}');
+// })
 
 
 
 
 app.get("/scrapping", function (req,res) {
 
-    const rut = req.query.txt_rut;
-    const password = req.query.txt_password;
-    console.log(rut);
-    console.log(password);
+    // const rut = req.query.txt_rut;
+    // const password = req.query.txt_password;
+    // console.log(rut);
+    // console.log(password);
 
 
     let scrape = async () => {
