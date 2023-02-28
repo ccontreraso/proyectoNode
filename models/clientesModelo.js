@@ -17,6 +17,10 @@ var clienteSchema = new Schema({
     email :{
         type: String,
         require: true
+    },
+    rut_cliente :{
+        type: String,
+        require: true
     }
 });
 

@@ -2,16 +2,30 @@ const express = require('express');
 const app = express();
 const index = require('./controller/index');
 const puppeteer = require('puppeteer');
+const mongoose = require('mongoose');
+const mongoCliente = require('mongodb')
+const mongoUrl = 'mongodb+srv://cesarcontrerasor:OnuJxeNzZPA9dPph@yelli-local.mog9njr.mongodb.net/test';
+const Cliente = require("./models/clientesModelo");
+const datosController = require('./controller/datos');
+//const router = express().router;    
 
 
 app.listen(3001,() => 
     console.log("El server se esta ejecutando en el puerto 3001")
 );
 
+
+mongoose.set('strictQuery', true);
+mongoose.connect(mongoUrl, {useNewUrlParser: true});
+var db = mongoose.connection;
+
+!db ? console.log("Hubo un error conectándose a la base de datos"): console.log("Conexión de base de datos satisfactoria");
+
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname+ '/public'))
 
 app.get('/', index.getIndex);
+app.get('/datos', datosController.mostrarDatos);
 
 
 app.get("/scrapping", function (req,res) {
@@ -62,12 +76,13 @@ app.get("/scrapping", function (req,res) {
             let fecha_nacimiento = document.querySelector("#cont-misdatos > div > section:nth-child(1) > div > div:nth-child(2) > span:nth-child(2) > strong").innerText;
             let direccion = document.querySelector("#cont-misdatos > div > section:nth-child(1) > div > div:nth-child(3) > span:nth-child(2)").innerText;
             let email = document.querySelector("#cont-misdatos > div > section:nth-child(1) > div > div:nth-child(4) > span:nth-child(3)").innerText;
-
+            let rut_cliente = document.querySelector("#cont-misdatos > div > section:nth-child(1) > div > header > div > h3").innerText;
             let clienteModelo = {
                 nombre_completo : nombre_completo,
                 fecha_nacimiento : fecha_nacimiento,
                 direccion: direccion,
-                email : email
+                email : email,
+                rut_cliente : rut_cliente
             }
 
             
@@ -92,5 +107,6 @@ app.get("/scrapping", function (req,res) {
     });
     
 });
+
 
 

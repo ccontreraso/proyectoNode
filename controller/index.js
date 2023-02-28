@@ -16,7 +16,7 @@ const path = require ('path');
 // !db ? console.log("Hubo un error conectándose a la base de datos"): console.log("Conexión de base de datos satisfactoria");
 
 exports.getIndex = ( req,res) => {
-    res.render('index',{title: 'Inicio'});
+    res.render('index',{title: 'Inicio', datos: []});
 };
 
 

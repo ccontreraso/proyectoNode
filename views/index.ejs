@@ -30,21 +30,42 @@
                 <button id="boton_prueba" type="submit" class="btn btn-primary" > Prueba</button>
             </div>
         <!-- </form> -->
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Rut</th>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Correo</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% datos.forEach(function(dato) { %>
+              <tr>
+                <td><%= dato._id %></th>
+                <td><%= dato.nombre_completo %></td>
+                <td><%= dato.fecha_nacimiento %></td>
+                <td><%= dato.direccion %></td>
+                <td><%= dato.email %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
     </div>  
 
    
 <script>
     const boton = document.querySelector('#boton_prueba');
-    console.log(_dirname);
     boton.addEventListener('click', async() => {
-        const response = await fetch('/controller/index/scrapping');
+        const response = await fetch('http://localhost:3001/scrapping');
         const message = await response.text();
         console.log(message);
-        console.log(_dirname);
 
     })
 </script>
-<script src="funciones.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
